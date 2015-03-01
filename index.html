@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>SocialH4ck</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="./css/styles.css">
+        <!--[if lt IE 10]>
+          <link rel="stylesheet" type="text/css" href="./css/ie-styles.css">
+        <![endif]-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src='./js/lodash.js'></script>
+        <script src='./js/angular-google-maps.js'></script>
+        <script type="text/javascript" src="./js/clientsController.js"></script>
+    </head>
+    <body id="ng-app" ng-app="socialHackApp" ng-controller="ClientsController">
+        <div class="page">
+            <section class="main-container">
+                <h1>SocialH4ck Clients</h1>
+                <nav class="top-navigation">
+                    <div class="nav-dropdown">
+                        <select ng-change="filterClients()" ng-model="currentStatus" ng-options="status for status in clientStatus"></select>
+                    </div>
+                    <div class="nav-dropdown clients">
+                        <select ng-model="currentClient" ng-change="loadMap()" ng-options="client.name for client in filteredClients">
+                            <option value="">Choose Client</option>
+                        </select>
+                    </div>
+                </nav>
+                <section class="user-container" ng-if="currentClient">
+                    <div class="main-data">
+                        <figure class="avatar">
+                            <img src="{{currentClient.picture}}" alt="{{currentClient.name}}">
+                        </figure>
+                        <h2>{{currentClient.name}}<span>( {{(currentClient.isActive)?'Active':'Inactive'}} )</span></h2>
+                        <h3 class="company">{{currentClient.company}}</h3>
+                        <h3 class="date">Registered on {{currentClient.registered.replace(" ","") | date:'short'}}</h3>
+                    </div>
+                    <div>
+                        <ul class="data-table">
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Gender</div>
+                                <div class="data-cell value-cell capitalize">{{currentClient.gender}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Age</div>
+                                <div class="data-cell value-cell">{{currentClient.age}} years-old</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Eyes Color</div>
+                                <div class="data-cell value-cell capitalize">{{currentClient.eyeColor}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Email</div>
+                                <div class="data-cell value-cell">{{currentClient.email}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Phone</div>
+                                <div class="data-cell value-cell">{{currentClient.phone}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Address </div>
+                                <div class="data-cell value-cell capitalize">{{currentClient.address}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">About</div>
+                                <div class="data-cell value-cell capitalize">{{currentClient.about}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Tags</div>
+                                <div class="data-cell value-cell">{{clientTags()}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Favorite Fruit</div>
+                                <div class="data-cell value-cell capitalize">{{currentClient.favoriteFruit}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Greeting</div>
+                                <div class="data-cell value-cell capitalize">{{currentClient.greeting}}</div>
+                            </li>
+                            <li class="data-row">
+                                <div class="data-cell title-cell">Friends</div>
+                                <div class="data-cell value-cell friends">
+                                    <ul>
+                                        <li ng-repeat="friend in currentClient.friends">{{friend.name}}</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="data-row map">
+                                <div class="data-cell title-cell">Client Location</div>
+                                <div class="data-cell value-cell ">
+                                    <ui-gmap-google-map center='map.center' zoom='map.zoom' options="mapOptions">
+                                        <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id">
+                                        </ui-gmap-marker>
+                                    </ui-gmap-google-map>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </body>
+</html>
