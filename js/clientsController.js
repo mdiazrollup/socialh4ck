@@ -1,8 +1,7 @@
 /*****
 *** TODO:: IE8 and lower support
 *****/
-var CLIENTS_URL = "http://200.44.225.153/data.json";
-//var CLIENTS_URL = "http://socialh4ck.com/dev/jobs/test/frontend/data.json";
+var CLIENTS_URL = "http://socialh4ck.com/dev/jobs/test/frontend/data.json";
 var MAP_API_KEY = "AIzaSyB-c_JhODjXP3HyYUy4_Wvx7HWIfRGHlH4";
 var socialHackApp = angular.module('socialHackApp', ['uiGmapgoogle-maps']);
 
